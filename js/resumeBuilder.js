@@ -1,7 +1,9 @@
 function renderResumeObject(obj,properties,renderProp){
-	properties.forEach(function(prop){
-		renderProp(prop,obj);
-	});
+	if (properties){
+		properties.forEach(function(prop){
+			renderProp(prop,obj);
+		});
+	}
 }
 
 var renderJob = function(prop,job){
@@ -23,8 +25,26 @@ var renderJob = function(prop,job){
 	}
 }
 
-var renderSkills = function(prop,obj){
-	formattedSkill = HTMLskills.replace("%data%",prop);
+var renderImage = function(image,obj){
+	var formattedImage = projectProperties[prop].replace("%data%",image);
+	$(".project-entry:last").append(formattedImage);
+}
+
+var renderProject = function(prop,project){
+	if(project.hasOwnProperty(prop)){
+		if (prop === "images"){
+			console.log(project[prop])
+			renderResumeObject(project,project[prop],renderImage);
+		}
+		else{
+			var formattedProject = projectProperties[prop].replace("%data%",project[prop]);
+			$(".project-entry:last").append(formattedProject);
+		}
+	}
+}
+
+var renderSkill = function(prop,obj){
+	var formattedSkill = HTMLskills.replace("%data%",prop);
 	$("#skills").append(formattedSkill);
 }
 
@@ -39,6 +59,25 @@ var renderContactInfo = function(prop,contact){
 		formattedContact = formattedContact.replace("%contact%",prop);
 		$("#topContacts").append(formattedContact);
 	}
+}
+
+var logClicks = function(x,y){
+	console.log(x,y);
+}
+
+projects.display = function(){
+	projects.projects.forEach(function(project){
+		$("#projects").append(HTMLprojectStart);
+		var props = Object.keys(project);
+		// console.log(project);
+		renderResumeObject(project,props,renderProject);
+	});
+	// for (project in projects.projects){
+	// 	// Create a new .work-entry div element
+	// 	$("#projects").append(HTMLprojectStart);
+	// 	var props = Object.keys.projects.projects[project];
+	// 	renderResumeObject(projects.projects[project],props,renderProject);
+	// }
 }
 
 // Render Name and Role
@@ -62,8 +101,11 @@ if (bio.pictureURL){
 // Render bio Skills
 if (bio.skills){
 	$("#header").append(HTMLskillsStart);
-	renderResumeObject(bio,bio.skills,renderSkills);
+	renderResumeObject(bio,bio.skills,renderSkill);
 }
+
+// Render the internationalize button
+$("#header").append(internationalizeButton);
 
 // Render Jobs
 if (work.jobs){
@@ -77,4 +119,9 @@ if (work.jobs){
 		var props = workRenderOrder;
 		renderResumeObject(work.jobs[job],props,renderJob);
 	}
+}
+
+// Render projects
+if (projects.projects){
+	projects.display();
 }
