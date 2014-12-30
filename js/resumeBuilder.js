@@ -31,17 +31,23 @@ var education = {
     ]
 };
 
+// All properties are neccessary for formatting. If you don't want to 
+// give a value for a property, use empty string
 var work = {
     "jobs": [
         {
             "employer": "Constant Contact",
             "title": "Software Engineer",
-            "dates": "Starting July 2015"
+            "dates": "Starting July 2015",
+            "location" : "Waltham, MA",
+            "description" : ""
         },
         {
             "employer": "Lincoln Laboratories",
-            "title": "Summer Intern / Student Co-Op",
-            "dates": "June 2014 - October 2014"
+            "title": "Summer Intern  Student Co-Op",
+            "dates": "June 2014  October 2014",
+            "location" : "Lexington, MA",
+            "description" : ""
         }
     ]
 };
@@ -51,7 +57,6 @@ formattedName = HTMLheaderName.replace("%data%",bio.name);
 formattedRole = HTMLheaderRole.replace("%data%",bio.role);
 $("#header").prepend(formattedRole);
 $("#header").prepend(formattedName);
-
 
 // // Render Contact Information
 if (bio.contact){
@@ -69,11 +74,14 @@ if (bio.contact){
 		}
 	});
 }
-console.log("hellooo");
-// // Render bio photo 
-formattedImg = HTMLbioPic.replace("%data%",bio.pictureURL);
-$("#header").append(formattedImg);
 
+// Render bio photo
+if (bio.pictureURL){
+	formattedImg = HTMLbioPic.replace("%data%",bio.pictureURL);
+	$("#header").append(formattedImg);
+}
+
+// Render bio Skills
 if (bio.skills){
 	$("#header").append(HTMLskillsStart);
 	bio.skills.forEach(function(skill){
@@ -81,6 +89,43 @@ if (bio.skills){
 		$("#skills").append(formattedSkill);
 	});
 }
+
+// Render Jobs
+// Ensure that job information is rendered in a specefic order
+// to have consistent formatting
+var workRenderOrder = ["employer","dates","location","description"]
+
+if (work.jobs){
+	for (job in work.jobs){
+		// Create a new .work-entry div element
+		console.log(work.jobs[job]);
+		$("#workExperience").append(HTMLworkStart);
+		var props = workRenderOrder;
+		props.forEach(function(prop){
+			if(work.jobs[job].hasOwnProperty(prop)){
+				/*
+				employer and title are 2 different properties but 
+				are rendered in the same tag, so we check if both exist and 
+				render them together 
+				*/
+				console.log(prop);
+				if (prop === "employer" && work.jobs[job].hasOwnProperty("title")){
+					var formattedJob = workProperties[prop].replace("%data%",work.jobs[job][prop]);
+					formattedJob = formattedJob + workProperties["title"].replace("%data%",work.jobs[job]["title"]);
+					console.log(formattedJob);
+					$(".work-entry:last").append(formattedJob);
+				}
+				else{
+					var formattedJob = workProperties[prop].replace("%data%",work.jobs[job][prop]);
+					console.log(formattedJob);
+					$(".work-entry:last").append(formattedJob);
+				}
+			}
+		});
+	}
+}
+
+
 
 // if bio.skills
 

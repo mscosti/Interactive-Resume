@@ -28,7 +28,7 @@ var contactMethods = {
   "github"  : HTMLgithub,
   "blog"    : HTMLblog,
   "location": HTMLlocation };
-  
+
 var HTMLbioPic = '<img src="%data%" class="biopic">';
 var HTMLWelcomeMsg = '<span class="welcome-message">%data%</span>';
 
@@ -41,6 +41,14 @@ var HTMLworkTitle = ' - %data%</a>';
 var HTMLworkDates = '<div class="date-text">%data%</div>';
 var HTMLworkLocation = '<div class="location-text">%data%</div>';
 var HTMLworkDescription = '<p><br>%data%</p>';
+
+var workProperties = {
+  "employer"  : HTMLworkEmployer,
+  "title"     : HTMLworkTitle,
+  "dates"     : HTMLworkDates,
+  "location"  : HTMLworkLocation,
+  "description": HTMLworkDescription 
+}
 
 var HTMLprojectStart = '<div class="project-entry"></div>';
 var HTMLprojectTitle = '<a href="#">%data%</a>';
