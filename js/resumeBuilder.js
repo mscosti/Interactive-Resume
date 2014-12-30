@@ -1,3 +1,28 @@
+function renderResumeObject(obj,properties,renderProp){
+	properties.forEach(function(prop){
+		if(obj.hasOwnProperty(prop)){
+			renderProp(prop,obj);
+		}
+	});
+}
+
+var renderJob = function(prop,job){
+	/*
+	employer and title are 2 different properties but 
+	are rendered in the same tag, so we check if both exist and 
+	render them together 
+	*/
+	if (prop === "employer" && job.hasOwnProperty("title")){
+		var formattedJob = workProperties[prop].replace("%data%",job[prop]);
+		formattedJob = formattedJob + workProperties["title"].replace("%data%",job["title"]);
+		$(".work-entry:last").append(formattedJob);
+	}
+	else{
+		var formattedJob = workProperties[prop].replace("%data%",job[prop]);
+		$(".work-entry:last").append(formattedJob);
+	}
+}
+
 // Render Name and Role
 formattedName = HTMLheaderName.replace("%data%",bio.name);
 formattedRole = HTMLheaderRole.replace("%data%",bio.role);
@@ -44,30 +69,9 @@ var workRenderOrder = ["employer","dates","location","description"]
 if (work.jobs){
 	for (job in work.jobs){
 		// Create a new .work-entry div element
-		console.log(work.jobs[job]);
 		$("#workExperience").append(HTMLworkStart);
 		var props = workRenderOrder;
-		props.forEach(function(prop){
-			if(work.jobs[job].hasOwnProperty(prop)){
-				/*
-				employer and title are 2 different properties but 
-				are rendered in the same tag, so we check if both exist and 
-				render them together 
-				*/
-				console.log(prop);
-				if (prop === "employer" && work.jobs[job].hasOwnProperty("title")){
-					var formattedJob = workProperties[prop].replace("%data%",work.jobs[job][prop]);
-					formattedJob = formattedJob + workProperties["title"].replace("%data%",work.jobs[job]["title"]);
-					console.log(formattedJob);
-					$(".work-entry:last").append(formattedJob);
-				}
-				else{
-					var formattedJob = workProperties[prop].replace("%data%",work.jobs[job][prop]);
-					console.log(formattedJob);
-					$(".work-entry:last").append(formattedJob);
-				}
-			}
-		});
+		renderResumeObject(work.jobs[job],props,renderJob);
 	}
 }
 
