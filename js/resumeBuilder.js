@@ -1,47 +1,71 @@
 // Formatting for Header and Bio information
-var name = "Matthew Costi";
-var role = "Software Engineer";
-var email = "mscosti3@gmail.com";
 var skills = ["Python", "Being Awesome"];
 
 var contact = {
-	"email" : "mscosti3@gmail.com",
-	"mobile" : "(508) 415 0750"
-	"github" : "github.com/mscosti"
-}
+	"email" 	: "mscosti3@gmail.com",
+	"mobile" 	: "(508) 415 0750",
+	"github" 	: "github.com/mscosti"
+};
+
 var bio = {
-	"name" : name,
-	"role" : role,
-	"contact" : contact,
-	"pictureURL" : "images/me.jpg",
-	"skills" : skills,
-	"welcome-msg" : "Matt Costi: Software extraordinare"};
+	"name" 		: "Matthew Costi",
+	"role" 		: "Software Engineer",
+	"contact" 	: contact,
+	"pictureURL": "images/me.jpg",
+	"skills" 	: skills,
+	"welcomeMsg": "Matt Costi: Software extraordinare"
+};
+
+var education = {
+    "schools": [
+        {
+            "schoolName": "Worcester Polytechnic Institute",
+            "degree": "BS",
+            "majors": [
+                "Computer Science",
+                "Robotics Engineering"
+            ],
+            "years": "2011 - 2015"
+        }
+    ]
+};
+
+var work = {
+    "jobs": [
+        {
+            "employer": "Constant Contact",
+            "title": "Software Engineer",
+            "dates": "Starting July 2015"
+        },
+        {
+            "employer": "Lincoln Laboratories",
+            "title": "Summer Intern / Student Co-Op",
+            "dates": "June 2014 - October 2014"
+        }
+    ]
+};
 
 
-// var HTMLcontactGeneric = '<li class="flex-item"><span class="orange-text">%contact%</span><span class="white-text">%data%</span></li>';
-// var HTMLmobile = '<li class="flex-item"><span class="orange-text">mobile</span><span class="white-text">%data%</span></li>';
-// var HTMLemail = '<li class="flex-item"><span class="orange-text">email</span><span class="white-text">%data%</span></li>';
-// var HTMLtwitter = '<li class="flex-item"><span class="orange-text">twitter</span><span class="white-text">%data%</span></li>';
-// var HTMLgithub = '<li class="flex-item"><span class="orange-text">github</span><span class="white-text">%data%</span></li>';
-// var HTMLblog = '<li class="flex-item"><span class="orange-text">blog</span><span class="white-text">%data%</span></li>';
-// var HTMLlocation = '<li class="flex-item"><span class="orange-text">location</span><span class="white-text">%data%</span></li>';
+// // Render Name and Role
+// formattedName = HTMLheaderName.replace("%data%",bio.name);
+// formattedRole = HTMLheaderRole.replace("%data%",bio.role);
+// $("#header").prepend(formattedRole);
+// $("#header").prepend(formattedName);
 
-// var HTMLbioPic = '<img src="%data%" class="biopic">';
-// var HTMLWelcomeMsg = '<span class="welcome-message">%data%</span>';
+// // Render Contact Information
+// formattedEmail = HTMLemail.replace("%data%",bio.contact.email);
+// $("#header").append(formattedEmail);
 
-// var HTMLskillsStart = '<h3 id="skillsH3">Skills at a Glance:</h3><ul id="skills" class="flex-box"></ul>';
-// var HTMLskills = '<li class="flex-item"><span class="white-text">%data%</span></li>';
+// // Render bio photo 
+// formattedImg = HTMLbioPic.replace("%data%",bio.pictureURL);
+// $("#header").append(formattedImg);
 
-formattedName = HTMLheaderName.replace("%data%",bio.name);
-formattedRole = HTMLheaderRole.replace("%data%",bio.role);
-formattedEmail = HTMLemail.replace("%data%",bio.contact.email);
-formattedImg = HTMLbioPic.replace("%data%",bio.pictureURL);
-formattedSkills = HTMLskills.replace("%data%",bio.skills.join(", "));
+// // Render skills
+// formattedSkills = HTMLskills.replace("%data%",bio.skills.join(", "));
+// $("#header").append(HTMLskillsStart);
+// $("#header").append(formattedSkills);
 
-$("#header").prepend(formattedRole);
-$("#header").prepend(formattedName);
-
-$("#header").append(formattedEmail);
-$("#header").append(formattedImg);
-$("#header").append(HTMLskillsStart);
-$("#header").append(formattedSkills);
+// // Render education
+// $("#education").append(HTMLschoolStart);
+// $("#education").append(HTMLschoolName.replace("%data%",education.school));
+// $("#education").append(HTMLschoolDates.replace("%data%",education.years));
