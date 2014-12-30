@@ -1,6 +1,7 @@
 // Formatting for Header and Bio information
 var skills = ["Python", "Being Awesome"];
 
+
 var contact = {
 	"email" 	: "mscosti3@gmail.com",
 	"mobile" 	: "(508) 415 0750",
@@ -45,25 +46,43 @@ var work = {
     ]
 };
 
+// Render Name and Role
+formattedName = HTMLheaderName.replace("%data%",bio.name);
+formattedRole = HTMLheaderRole.replace("%data%",bio.role);
+$("#header").prepend(formattedRole);
+$("#header").prepend(formattedName);
 
-// // Render Name and Role
-// formattedName = HTMLheaderName.replace("%data%",bio.name);
-// formattedRole = HTMLheaderRole.replace("%data%",bio.role);
-// $("#header").prepend(formattedRole);
-// $("#header").prepend(formattedName);
 
 // // Render Contact Information
-// formattedEmail = HTMLemail.replace("%data%",bio.contact.email);
-// $("#header").append(formattedEmail);
-
+if (bio.contact){
+	var methods = Object.keys(bio.contact);
+	methods.forEach(function(method){
+		if(contactMethods.hasOwnProperty(method)){
+			var formattedContact = contactMethods[method].replace("%data%",bio.contact[method]);
+			$("#topContacts").append(formattedContact);
+			console.log("have contact");
+		}
+		else{
+			var formattedContact = contactMethods["generic"].replace("%data%",bio.contact[method])
+			formattedContact = formattedContact.replace("%contact%",method);
+			$("#topContacts").append(formattedContact);
+		}
+	});
+}
+console.log("hellooo");
 // // Render bio photo 
-// formattedImg = HTMLbioPic.replace("%data%",bio.pictureURL);
-// $("#header").append(formattedImg);
+formattedImg = HTMLbioPic.replace("%data%",bio.pictureURL);
+$("#header").append(formattedImg);
 
-// // Render skills
-// formattedSkills = HTMLskills.replace("%data%",bio.skills.join(", "));
-// $("#header").append(HTMLskillsStart);
-// $("#header").append(formattedSkills);
+if (bio.skills){
+	$("#header").append(HTMLskillsStart);
+	bio.skills.forEach(function(skill){
+		formattedSkill = HTMLskills.replace("%data%",skill);
+		$("#skills").append(formattedSkill);
+	});
+}
+
+// if bio.skills
 
 // // Render education
 // $("#education").append(HTMLschoolStart);

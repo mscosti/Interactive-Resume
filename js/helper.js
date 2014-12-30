@@ -20,6 +20,15 @@ var HTMLgithub = '<li class="flex-item"><span class="orange-text">github</span><
 var HTMLblog = '<li class="flex-item"><span class="orange-text">blog</span><span class="white-text">%data%</span></li>';
 var HTMLlocation = '<li class="flex-item"><span class="orange-text">location</span><span class="white-text">%data%</span></li>';
 
+var contactMethods = {
+  "generic" : HTMLcontactGeneric,
+  "mobile"  : HTMLmobile,
+  "email"   : HTMLemail,
+  "twitter" : HTMLtwitter,
+  "github"  : HTMLgithub,
+  "blog"    : HTMLblog,
+  "location": HTMLlocation };
+  
 var HTMLbioPic = '<img src="%data%" class="biopic">';
 var HTMLWelcomeMsg = '<span class="welcome-message">%data%</span>';
 
