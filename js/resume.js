@@ -29,6 +29,8 @@ var education = {
 			"years": "2011 - 2015"
 		}
 	]
+	// "display" : function,
+	// "html" : {object with property : HTMLstring}	
 };
 
 // All properties are neccessary for formatting. If you don't want to 
@@ -49,7 +51,17 @@ var work = {
 			"location" : "Lexington, MA",
 			"description" : ""
 		}
-	]
+	],
+	"html" : {
+		"newEntry"	: HTMLworkStart,
+		"employer"  : HTMLworkEmployer,
+		"title"     : HTMLworkTitle,
+		"dates"     : HTMLworkDates,
+		"location"  : HTMLworkLocation,
+		"description": HTMLworkDescription 
+	},
+	"startTag" : "#workExperience",
+	"entryTag" : ".work-entry:last"
 };
 
 var projects = {
@@ -66,5 +78,15 @@ var projects = {
 			"description": "",
 			"images": ""
 		}
-	]
+	],
+	"html" : {
+		"newEntry"		: HTMLprojectStart,
+		"title"			: HTMLprojectTitle,
+		"dates"			: HTMLprojectDates,
+		"description"	: HTMLprojectDescription,
+		"images"		: HTMLprojectImage,
+	},
+	"startTag" : "#projects",
+	"entryTag" : ".project-entry:last"
+
 };

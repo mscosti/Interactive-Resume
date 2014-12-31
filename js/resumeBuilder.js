@@ -4,7 +4,7 @@ function renderResumeObject(obj,properties,renderProp){
 			renderProp(prop,obj);
 		});
 	}
-}
+};
 
 var renderJob = function(prop,job){
 	/*
@@ -33,7 +33,6 @@ var renderImage = function(image,obj){
 var renderProject = function(prop,project){
 	if(project.hasOwnProperty(prop)){
 		if (prop === "images"){
-			console.log(project[prop])
 			renderResumeObject(project,project[prop],renderImage);
 		}
 		else{
@@ -61,24 +60,13 @@ var renderContactInfo = function(prop,contact){
 	}
 }
 
-var logClicks = function(x,y){
-	console.log(x,y);
-}
-
-projects.display = function(){
-	projects.projects.forEach(function(project){
-		$("#projects").append(HTMLprojectStart);
-		var props = Object.keys(project);
-		// console.log(project);
-		renderResumeObject(project,props,renderProject);
-	});
-	// for (project in projects.projects){
-	// 	// Create a new .work-entry div element
-	// 	$("#projects").append(HTMLprojectStart);
-	// 	var props = Object.keys.projects.projects[project];
-	// 	renderResumeObject(projects.projects[project],props,renderProject);
-	// }
-}
+// projects.display = function(){
+// 	projects.projects.forEach(function(project){
+// 		$("#projects").append(HTMLprojectStart);
+// 		var props = Object.keys(project);
+// 		renderResumeObject(project,props,renderProject);
+// 	});
+// }
 
 // Render Name and Role
 formattedName = HTMLheaderName.replace("%data%",bio.name);
@@ -104,24 +92,75 @@ if (bio.skills){
 	renderResumeObject(bio,bio.skills,renderSkill);
 }
 
-// Render the internationalize button
-$("#header").append(internationalizeButton);
+// // Render the internationalize button
+// $("#header").append(internationalizeButton);
 
-// Render Jobs
-if (work.jobs){
-	// Render Jobs
-	// Ensure that job information is rendered in a specefic order
-	// to have consistent formatting
-	var workRenderOrder = ["employer","dates","location","description"]
-	for (job in work.jobs){
-		// Create a new .work-entry div element
-		$("#workExperience").append(HTMLworkStart);
-		var props = workRenderOrder;
-		renderResumeObject(work.jobs[job],props,renderJob);
+// // Render Jobs
+// if (work.jobs){
+// 	// Render Jobs
+// 	// Ensure that job information is rendered in a specefic order
+// 	// to have consistent formatting
+// 	var workRenderOrder = ["employer","dates","location","description"]
+// 	for (job in work.jobs){
+// 		// Create a new .work-entry div element
+// 		$("#workExperience").append(HTMLworkStart);
+// 		var props = workRenderOrder;
+// 		renderResumeObject(work.jobs[job],props,renderJob);
+// 	}
+// }
+
+// // Render projects
+// if (projects.projects){
+// 	projects.display();
+// }
+
+var object = {
+	"methods" 	: {
+		"email" 	: "mscosti3@gmail.com",
+		"mobile" 	: "(508) 415 0750",
+		"github" 	: "github.com/mscosti"
+	},
+	"html"	: {"email" : "duuuur%data%"},
+	"startTag" 	:  "#start",
+	"entryTag"	: 	".entry:last"
+};
+
+
+var renderObject = function(resumeObject, objectToRender){
+	console.log("entered renderer");
+	console.log(objectToRender);
+	$(resumeObject.startTag).append(resumeObject.html.newEntry);
+	for (key in objectToRender){
+		if (typeof objectToRender[key] === 'object'){
+			console.log("object!");
+			console.log(objectToRender);
+			renderObject(resumeObject, objectToRender[key]);
+		}
+		else{
+			console.log("content!")
+			console.log(objectToRender[key]);
+			renderContent(resumeObject,key,objectToRender[key]);
+		}
 	}
 }
 
-// Render projects
-if (projects.projects){
-	projects.display();
+var renderContent = function(resumeObject,htmlKey, content){
+	// console.log("yay");
+	console.log(htmlKey)
+	var formattedContent = resumeObject.html[htmlKey].replace("%data%",content);
+	console.log(formattedContent);
+	console.log(resumeObject.entryTag);
+	$(resumeObject.entryTag).append(formattedContent);
 }
+
+work.display = function(){
+	console.log(work.jobs);
+	renderObject(work,work.jobs);
+}
+
+projects.display = function(){
+	renderObject(projects,projects.projects);
+}
+
+work.display();
+projects.display();
